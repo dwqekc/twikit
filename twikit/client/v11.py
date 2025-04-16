@@ -17,6 +17,7 @@ class Endpoint:
     ACCOUNT_LOGOUT = f'https://api.{DOMAIN}/1.1/account/logout.json'
     ONBOARDING_TASK = f'https://api.{DOMAIN}/1.1/onboarding/task.json'
     SETTINGS = f'https://api.{DOMAIN}/1.1/account/settings.json'
+    EMAIL_PHONE_INFO = f'https://{DOMAIN}/i/api/1.1/users/email_phone_info.json'
     UPLOAD_MEDIA = f'https://upload.{DOMAIN}/i/media/upload.json'
     UPLOAD_MEDIA_2 = f'https://upload.{DOMAIN}/i/media/upload2.json'
     CREATE_MEDIA_METADATA = f'https://api.{DOMAIN}/1.1/media/metadata/create.json'
