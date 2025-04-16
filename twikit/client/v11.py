@@ -113,6 +113,12 @@ class V11Client:
             headers=self.base._base_headers
         )
 
+    async def email_phone_info(self):
+        return await self.base.get(
+            Endpoint.EMAIL_PHONE_INFO,
+            headers=self.base._base_headers
+        )
+
     async def upload_media(self, method, is_long_video: bool, *args, **kwargs):
         if is_long_video:
             endpoint = Endpoint.UPLOAD_MEDIA_2
