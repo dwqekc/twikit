@@ -715,6 +715,13 @@ class Client:
         self._user_id = (await self.get_user_by_screen_name(screen_name)).id
         return self._user_id
 
+    async def email_phone_info(self) -> str:
+        """
+        get email_phone_info
+        """
+        response, _ = await self.v11.email_phone_info()
+        return response
+
     async def user(self) -> User:
         """
         Retrieve detailed information about the authenticated user.
