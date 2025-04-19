@@ -72,8 +72,8 @@ class GuestClient:
 
     def __init__(
         self,
-        language: str = 'en-US',
         http: AsyncClient,
+        language: str = 'en-US',
         **kwargs
     ) -> None:
         if 'proxies' in kwargs:
