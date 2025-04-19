@@ -91,8 +91,8 @@ class Client:
 
     def __init__(
         self,
-        http: AsyncClient,
         language: str = 'en-US',
+        http: AsyncClient,
         captcha_solver: TwoCaptcher | None = None,
         user_agent: str | None = None,
         **kwargs
