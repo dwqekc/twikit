@@ -92,7 +92,7 @@ class Client:
     def __init__(
         self,
         language: str = 'en-US',
-        http: AsyncClient,
+        proxy: str | None = None,
         captcha_solver: TwoCaptcher | None = None,
         user_agent: str | None = None,
         **kwargs
@@ -104,8 +104,9 @@ class Client:
             )
             warnings.warn(message)
 
-        self.http = http
+        self.http = AsyncClient(proxy=proxy, **kwargs)
         self.language = language
+        self.proxy = proxy
         self.captcha_solver = captcha_solver
         if captcha_solver is not None:
             captcha_solver.client = self
