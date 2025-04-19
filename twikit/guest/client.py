@@ -73,7 +73,7 @@ class GuestClient:
     def __init__(
         self,
         language: str = 'en-US',
-        proxy: str | None = None,
+        http: AsyncClient,
         **kwargs
     ) -> None:
         if 'proxies' in kwargs:
@@ -83,9 +83,8 @@ class GuestClient:
             )
             warnings.warn(message)
 
-        self.http = AsyncClient(proxy=proxy, **kwargs)
+        self.http = http
         self.language = language
-        self.proxy = proxy
 
         self._token = TOKEN
         self._user_agent = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
