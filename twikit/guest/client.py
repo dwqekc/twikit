@@ -72,13 +72,11 @@ class GuestClient:
 
     def __init__(
         self,
-        self.http: AsyncClient,
+        http: AsyncClient,
         language: str = 'en-US',
-        proxy: str | None = None,
-        **kwargs
     ) -> None:
         self.language = language
-
+        self.http = http
         self._token = TOKEN
         self._user_agent = ('Mozilla/5.0 (Windows NT 10.0; Win64; x64) '
                             'AppleWebKit/537.36 (KHTML, like Gecko) '
