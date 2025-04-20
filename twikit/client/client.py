@@ -91,22 +91,14 @@ class Client:
 
     def __init__(
         self,
+        self.http: AsyncClient,
         language: str = 'en-US',
         proxy: str | None = None,
         captcha_solver: TwoCaptcher | None = None,
         user_agent: str | None = None,
         **kwargs
     ) -> None:
-        if 'proxies' in kwargs:
-            message = (
-                "The 'proxies' argument is now deprecated. Use 'proxy' "
-                "instead. https://github.com/encode/httpx/pull/2879"
-            )
-            warnings.warn(message)
-
-        self.http = AsyncClient(proxy=proxy, **kwargs)
         self.language = language
-        self.proxy = proxy
         self.captcha_solver = captcha_solver
         if captcha_solver is not None:
             captcha_solver.client = self
