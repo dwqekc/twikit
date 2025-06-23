@@ -11,6 +11,7 @@ from ..constants import (
     JOIN_COMMUNITY_FEATURES,
     LIST_FEATURES,
     NOTE_TWEET_FEATURES,
+    ARTICLE_FEATURES,
     SIMILAR_POSTS_FEATURES,
     TWEET_RESULT_BY_REST_ID_FEATURES,
     TWEET_RESULTS_BY_REST_IDS_FEATURES,
@@ -99,6 +100,9 @@ class Endpoint:
     MODERATORS_SLICE_TIMELINE_QUERY = url('9KI_r8e-tgp3--N5SZYVjg/moderatorsSliceTimeline_Query')
     COMMUNITY_TWEET_SEARCH_MODULE_QUERY = url('5341rmzzvdjqfmPKfoHUBw/CommunityTweetSearchModuleQuery')
     TWEET_RESULTS_BY_REST_IDS = url('PTN9HhBAlpoCTHfspDgqLA/TweetResultsByRestIds')
+    ARTICLE_ENTITY_DRAFT_CREATE = url('GtkE_fIvGpfhl6AgAxI4ag/ArticleEntityDraftCreate')
+    ARTICLE_ENTITY_SET_MEDIA = url('wZ8nA4roHl8gXGBkP4kO0w/ArticleEntityUpdateCoverMedia')
+    ARTICLE_ENTITY_PUBLISH = url('YIVDdGK-jx-6WJjoytT5GQ/ArticleEntityPublish')
 
 
 class GQLClient:
@@ -223,6 +227,70 @@ class GQLClient:
             features = FEATURES
         return await self.gql_post(endpoint, variables, features)
 
+    async def create_article_draft(
+        self, title, text, users
+    ):
+        blocks = []
+        blocks.append({
+            "data": {},
+            "text": text,
+            "key": "4lfj4",
+            "type": "unstyled",
+            "entity_ranges": [],
+            "inline_style_ranges": []
+        })
+        usernames = ''
+        for user in users:
+            if not user.startswith('@'):
+                text_username = f'@{user}'
+            else:
+                text_username = user
+            usernames += f'{text_username}\n'
+        blocks.append({
+            "data": {},
+            "text": usernames,
+            "key": "t35g",
+            "type": "unstyled",
+            "entity_ranges": [],
+            "inline_style_ranges": []
+        })
+
+        variables = {
+            "content_state": {
+                "blocks": blocks,
+            "entity_map": []
+            },
+            "title": title
+        }
+        endpoint = Endpoint.ARTICLE_ENTITY_DRAFT_CREATE
+        features = ARTICLE_FEATURES
+        return await self.gql_post(endpoint, variables, features)
+
+    async def set_media_article(
+        self, articleEntityId, media_id
+    ):
+        variables = {
+            "articleEntityId": articleEntityId,
+            "coverMedia": {
+                "media_id": media_id,
+                "media_category": "DraftTweetImage"
+            },
+        }
+        endpoint = Endpoint.ARTICLE_ENTITY_SET_MEDIA
+        features = ARTICLE_FEATURES
+        return await self.gql_post(endpoint, variables, features)
+
+    async def publish_article(
+        self, articleEntityId
+    ):
+        variables = {
+            "articleEntityId": articleEntityId,
+            "visibilitySetting":"Public",
+        }
+        endpoint = Endpoint.ARTICLE_ENTITY_PUBLISH
+        features = ARTICLE_FEATURES
+        return await self.gql_post(endpoint, variables, features)
+    
     async def create_scheduled_tweet(self, scheduled_at, text, media_ids) -> str:
         variables = {
             'post_tweet_request': {
