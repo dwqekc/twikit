@@ -1117,53 +1117,33 @@ class Client:
 
     async def create_article(
         self,
-        media: bytes,
+        media_id_header: str,
+        media_id_1: str,
+        media_id_2: str,
+        media_id_3: str,
+        text_1: str,
+        text_2: str,
+        text_3: str,
+        link: str,
+        link_spoof: str,
         title: str = '',
-        text: str = '',
         users: list[str] = [''],
     ) -> str:
         """
         Creates a new article on Twitter with the specified
         text, media.
 
-        Parameters
-        ----------
-        title : :class:`str`, default=''
-            The title content of the article.
-        text : :class:`str`, default=''
-            The text content of the article.
-        users : list[:class:`str`], default=['']
-            A list of usernames what needed mention.
-        media : :class:`bytes`, default=''
-            The media content of the article.
-
         Returns
         -------
         :class:`str`
             The Created article id.
-
-        Examples
-        --------
-
-        Create a article:
-
-        >>> article_text = 'Example text'
-        >>> article_title = 'Example title'
-        >>> article_users = ['@elonmusk']
-        >>> media = b'media_data'
-        >>> await client.create_article(
-        ...     title=title,
-        ...     text=text,
-        ...     users=users,
-        ...     media=media,
-        ... )
 
         See Also
         --------
         .upload_media
         """
         response, _ = await self.gql.create_article_draft(
-            title, text, users,
+            title, text_1, text_2, text_3, media_id_1, media_id_2, media_id_3, users, link, link_spoof,
         )
         if 'errors' in response:
             raise_exceptions_from_response(response['errors'])
@@ -1172,8 +1152,7 @@ class Client:
             )
         article_id = response.get('data').get('articleentity_create_draft').get('article_entity_results').get('result').get('rest_id')
         if article_id:
-            media_id = await self.upload_media(source=media,wait_for_completion=True)
-            await self.gql.set_media_article(articleEntityId=article_id,media_id=media_id)
+            await self.gql.set_media_article(articleEntityId=article_id,media_id=media_id_header)
             await self.gql.publish_article(articleEntityId=article_id)
         else:
             raise TwitterException('Error when create article')
