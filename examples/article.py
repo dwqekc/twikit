@@ -24,7 +24,12 @@ async def main():
     # Asynchronous client methods are coroutines and
     # must be called using `await`.
     client.set_cookies(cookies=COOKIES)
-    article_id = await client.create_article(title='Example title',text='Example text',users=['@elonmusk'],media='...')
+    media_id_header = await client.upload_media(...)
+    media_id_1 = await client.upload_media(...)
+    media_id_2 = await client.upload_media(...)
+    media_id_3 = await client.upload_media(...)
+    article_id = await client.create_article(title='Example title',users=['@elonmusk'],media_id_1=media_id_1,media_id_2=media_id_2,media_id_3=media_id_3,text_1='text_1',text_2='text_2',text_3='text_3',
+                                             media_id_header=media_id_header,link='',link_spoof='')
     print(article_id)
 
 

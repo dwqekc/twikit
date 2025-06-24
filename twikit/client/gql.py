@@ -228,17 +228,250 @@ class GQLClient:
         return await self.gql_post(endpoint, variables, features)
 
     async def create_article_draft(
-        self, title, text, users
+        self, title, text_1, text_2, text_3, media_id_1, media_id_2, media_id_3, users, link, link_spoof
     ):
-        blocks = []
-        blocks.append({
-            "data": {},
-            "text": text,
-            "key": "4lfj4",
-            "type": "unstyled",
-            "entity_ranges": [],
-            "inline_style_ranges": []
-        })
+        blocks = [
+        {
+          "data": {},
+          "text": text_1,
+          "key": "a96m8",
+          "type": "unstyled",
+          "entity_ranges": [],
+          "inline_style_ranges": []
+        },
+        {
+          "data": {},
+          "text": f"🔗 {link}",
+          "key": "7cmhk",
+          "type": "unstyled",
+          "entity_ranges": [
+            {
+              "key": 0,
+              "offset": 0,
+              "length": 1
+            },
+            {
+              "key": 1,
+              "offset": 2,
+              "length": 4
+            }
+          ],
+          "inline_style_ranges": []
+        },
+        {
+          "data": {},
+          "text": "",
+          "key": "86aic",
+          "type": "unstyled",
+          "entity_ranges": [],
+          "inline_style_ranges": []
+        },
+        {
+          "data": {},
+          "text": " ",
+          "key": "9s594",
+          "type": "atomic",
+          "entity_ranges": [
+            {
+              "key": 2,
+              "offset": 0,
+              "length": 1
+            }
+          ],
+          "inline_style_ranges": []
+        },
+        {
+          "data": {},
+          "text": text_2,
+          "key": "c03hk",
+          "type": "unstyled",
+          "entity_ranges": [],
+          "inline_style_ranges": []
+        },
+        {
+          "data": {},
+          "text": f"🔗 {link}",
+          "key": "7j5a3",
+          "type": "unstyled",
+          "entity_ranges": [
+            {
+              "key": 3,
+              "offset": 0,
+              "length": 1
+            },
+            {
+              "key": 4,
+              "offset": 2,
+              "length": 4
+            }
+          ],
+          "inline_style_ranges": []
+        },
+        {
+          "data": {},
+          "text": " ",
+          "key": "dn00j",
+          "type": "atomic",
+          "entity_ranges": [
+            {
+              "key": 5,
+              "offset": 0,
+              "length": 1
+            }
+          ],
+          "inline_style_ranges": []
+        },
+        {
+          "data": {},
+          "text": text_3,
+          "key": "6ttca",
+          "type": "unstyled",
+          "entity_ranges": [],
+          "inline_style_ranges": []
+        },
+        {
+          "data": {},
+          "text": f"🔗 {link}",
+          "key": "7rso0",
+          "type": "unstyled",
+          "entity_ranges": [
+            {
+              "key": 6,
+              "offset": 0,
+              "length": 1
+            },
+            {
+              "key": 7,
+              "offset": 2,
+              "length": 4
+            }
+          ],
+          "inline_style_ranges": []
+        },
+        {
+          "data": {},
+          "text": " ",
+          "key": "81jau",
+          "type": "atomic",
+          "entity_ranges": [
+            {
+              "key": 8,
+              "offset": 0,
+              "length": 1
+            }
+          ],
+          "inline_style_ranges": []
+        },
+        ]
+
+        entity_map = [
+        {
+          "key": "0",
+          "value": {
+            "data": {
+              "url": "https://abs-0.twimg.com/emoji/v2/svg/1f517.svg"
+            },
+            "type": "TWEMOJI",
+            "mutability": "Immutable"
+          }
+        },
+        {
+          "key": "1",
+          "value": {
+            "data": {
+              "url": link_spoof
+            },
+            "type": "LINK",
+            "mutability": "Mutable"
+          }
+        },
+        {
+          "key": "2",
+          "value": {
+            "data": {
+              "media_items": [
+                {
+                  "media_category": "DraftTweetImage",
+                  "media_id": media_id_1
+                }
+              ]
+            },
+            "type": "MEDIA",
+            "mutability": "Immutable"
+          }
+        },
+        {
+          "key": "3",
+          "value": {
+            "data": {
+              "url": "https://abs-0.twimg.com/emoji/v2/svg/1f517.svg"
+            },
+            "type": "TWEMOJI",
+            "mutability": "Immutable"
+          }
+        },
+        {
+          "key": "4",
+          "value": {
+            "data": {
+              "url": link_spoof
+            },
+            "type": "LINK",
+            "mutability": "Mutable"
+          }
+        },
+        {
+          "key": "5",
+          "value": {
+            "data": {
+              "media_items": [
+                {
+                  "media_category": "DraftTweetImage",
+                  "media_id": media_id_2
+                }
+              ]
+            },
+            "type": "MEDIA",
+            "mutability": "Immutable"
+          }
+        },
+        {
+          "key": "6",
+          "value": {
+            "data": {
+              "url": "https://abs-0.twimg.com/emoji/v2/svg/1f517.svg"
+            },
+            "type": "TWEMOJI",
+            "mutability": "Immutable"
+          }
+        },
+        {
+          "key": "7",
+          "value": {
+            "data": {
+              "url": link_spoof
+            },
+            "type": "LINK",
+            "mutability": "Mutable"
+          }
+        },
+        {
+          "key": "8",
+          "value": {
+            "data": {
+              "media_items": [
+                {
+                  "media_category": "DraftTweetImage",
+                  "media_id": media_id_3
+                }
+              ]
+            },
+            "type": "MEDIA",
+            "mutability": "Immutable"
+          }
+        }
+        ]
+
         usernames = ''
         for user in users:
             if not user.startswith('@'):
@@ -258,7 +491,7 @@ class GQLClient:
         variables = {
             "content_state": {
                 "blocks": blocks,
-            "entity_map": []
+            "entity_map": entity_map
             },
             "title": title
         }
