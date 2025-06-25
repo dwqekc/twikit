@@ -253,7 +253,7 @@ class GQLClient:
             {
               "key": 1,
               "offset": 2,
-              "length": 4
+              "length": len(link) + 1
             }
           ],
           "inline_style_ranges": []
@@ -302,7 +302,7 @@ class GQLClient:
             {
               "key": 4,
               "offset": 2,
-              "length": 4
+              "length": len(link) + 1
             }
           ],
           "inline_style_ranges": []
@@ -343,7 +343,7 @@ class GQLClient:
             {
               "key": 7,
               "offset": 2,
-              "length": 4
+              "length": len(link) + 1
             }
           ],
           "inline_style_ranges": []
